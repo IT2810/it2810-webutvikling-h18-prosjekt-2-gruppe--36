@@ -1,5 +1,4 @@
 import React from "react";
-import AudioPlayer from "./AudioPlayer";
 
 class GalleryView extends React.Component {
   constructor(props) {
@@ -39,15 +38,24 @@ class GalleryView extends React.Component {
       });
   }
 
+  updateSound = (category, index) => {
+    // Denne skulle ikke fetche via ajax.
+    this.setState({
+      sound: "./sound/" + category["value"] + "/" + (index + 1).toString() + ".mp3"
+    });
+  }
+
   componentWillReceiveProps() {
     // TODO: Denne får bare gamle updates fordi WILL receive, den har ikke fått nye props enda. Fiks det
-
     if (typeof this.props.imgCategory !== "undefined") {
       // Hvis du har valgt en kategori for bildene. Så kjøres denne.
       this.updateImage(this.props.imgCategory, this.props.tabIndex);
     }
     if (typeof this.props.textCategory !== "undefined") {
       this.updateText(this.props.textCategory, this.props.tabIndex);
+    }
+    if (typeof this.props.soundCategory !== "undefined") {
+      this.updateSound(this.props.soundCategory, this.props.tabIndex);
     }
   }
   render() {
@@ -56,7 +64,7 @@ class GalleryView extends React.Component {
         {this.state.img && <img src={this.state.img} alt="A beautiful gallery"></img>}
         {this.state.text && <p>{this.state.text["text"]}</p>}
         {this.state.text && <p>{this.state.text["source"]}</p>}
-        <AudioPlayer />
+        {this.state.sound && <audio ref="audio_tag" src={this.state.sound} controls autoPlay type="audio/mpeg" />}
       </div>
     );
   }
