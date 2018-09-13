@@ -6,7 +6,6 @@ class CategorySelector extends React.Component {
   };
 
   render() {
-    console.log(this.props.categories)
     let categories = this.props.categories.categories.map((category, index) => {
       let key = this.props.title + index;
       return (

@@ -12,49 +12,46 @@ class App extends Component {
       tabIndex: 0
     };
     this.categoryTypes = [
-      { title: "Bilder", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
-      { title: "Tekst", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
-      { title: "Lyd", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
+      { title: "Pictures", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
+      { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
+      { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
   }
 
   updateSelectedCategory = (category, value) => {
     let categories = this.state.categories.filter(item => {
-      return item.category != category;
+      return item.category !== category;
     });
     categories.push({ category: category, value: value });
     this.setState({ categories: categories });
   };
 
   updateSelectedTab = tabIndex => {
-    this.setState({ tabIndex: tabIndex });
+    this.setState({ tabIndex: parseInt(tabIndex) });
   };
 
   render() {
-    console.log(this.state.categories);
     let imgCategory = this.state.categories.find(item => {
-      return item.category == this.categoryTypes[0];
+      return item.category === this.categoryTypes[0]["title"];
     });
-
     let textCategory = this.state.categories.find(item => {
-      return item.category == this.categoryTypes[1];
+      return item.category === this.categoryTypes[1]["title"];
     });
 
     let soundCategory = this.state.categories.find(item => {
-      return item.category == this.categoryTypes[2];
+      return item.category === this.categoryTypes[2]["title"];
     });
-
     return (
       <div>
         <div>
           <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
-          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory}/>
+          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex}/>
         </div>
 
         <div>
-          <CategorySelector title="Bilder" categories={this.categoryTypes.find(item => item.title == "Bilder")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Lyd" categories={this.categoryTypes.find(item => item.title == "Lyd")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Tekst" categories={this.categoryTypes.find(item => item.title == "Tekst")} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Audio" categories={this.categoryTypes.find(item => item.title === "Audio")} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Text" categories={this.categoryTypes.find(item => item.title === "Text")} updateSelectedCategory={this.updateSelectedCategory} />
         </div>
       </div>
     );

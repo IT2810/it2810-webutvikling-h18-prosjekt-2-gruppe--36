@@ -3,7 +3,6 @@ import React from "react";
 class TabController extends React.Component {
 
   updateSelectedTab = (event) => {
-      console.log(event.target.value)
       this.props.updateSelectedTab(event.target.value);
   }
 
