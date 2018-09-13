@@ -1,12 +1,16 @@
 import React from "react";
 
 class CategorySelector extends React.Component {
+  updateSelectedCategory = value => {
+    this.props.updateSelectedCategory(this.props.title, value.target.value);
+  };
+
   render() {
     let categories = this.props.categories.map((category, index) => {
-        let key = this.props.title + index;
+      let key = this.props.title + index;
       return (
         <div key={key}>
-          <input type="radio" id={key} name={this.props.title} value={category} />
+          <input onChange={this.updateSelectedCategory} type="radio" id={key} name={this.props.title} value={category} />
           <label htmlFor={key}>{category}</label>
         </div>
       );
