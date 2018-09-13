@@ -8,8 +8,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      tabIndex: 0
     };
+  
   }
 
   updateSelectedCategory = (category, value) => {
@@ -20,14 +22,16 @@ class App extends Component {
     this.setState({ categories: categories });
   };
 
-  render() {
-    console.log(this.state.categories);
+  updateSelectedTab = tabIndex => {
+    this.setState({ tabIndex: tabIndex });
+  };
 
+  render() {
     return (
       <div>
         <div>
-          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} />
-          <GalleryView />
+          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
+          <GalleryView tabIndex={this.state.tabIndex}  />
         </div>
 
         <div>
