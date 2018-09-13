@@ -11,7 +11,11 @@ class App extends Component {
       categories: [],
       tabIndex: 0
     };
-  
+    this.categoryTypes = [
+      { title: "Bilder", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
+      { title: "Tekst", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
+      { title: "Lyd", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
+    ];
   }
 
   updateSelectedCategory = (category, value) => {
@@ -27,17 +31,30 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.categories);
+    let imgCategory = this.state.categories.find(item => {
+      return item.category == this.categoryTypes[0];
+    });
+
+    let textCategory = this.state.categories.find(item => {
+      return item.category == this.categoryTypes[1];
+    });
+
+    let soundCategory = this.state.categories.find(item => {
+      return item.category == this.categoryTypes[2];
+    });
+
     return (
       <div>
         <div>
           <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
-          <GalleryView tabIndex={this.state.tabIndex}  />
+          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory}/>
         </div>
 
         <div>
-          <CategorySelector title="Bilder" categories={["Test1", "Test2", "Test3"]} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Lyd" categories={["xxx", "yy", "zzz"]} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Tekst" categories={["dfd", "aa", "Testfddf3"]} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Bilder" categories={this.categoryTypes.find(item => item.title == "Bilder")} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Lyd" categories={this.categoryTypes.find(item => item.title == "Lyd")} updateSelectedCategory={this.updateSelectedCategory} />
+          <CategorySelector title="Tekst" categories={this.categoryTypes.find(item => item.title == "Tekst")} updateSelectedCategory={this.updateSelectedCategory} />
         </div>
       </div>
     );

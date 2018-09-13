@@ -6,12 +6,13 @@ class CategorySelector extends React.Component {
   };
 
   render() {
-    let categories = this.props.categories.map((category, index) => {
+    console.log(this.props.categories)
+    let categories = this.props.categories.categories.map((category, index) => {
       let key = this.props.title + index;
       return (
         <div key={key}>
-          <input onChange={this.updateSelectedCategory} type="radio" id={key} name={this.props.title} value={category} />
-          <label htmlFor={key}>{category}</label>
+          <input onChange={this.updateSelectedCategory} type="radio" id={key} name={this.props.title} value={category.catalogName} />
+          <label htmlFor={key}>{category.displayName}</label>
         </div>
       );
     });
