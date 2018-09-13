@@ -23,17 +23,39 @@ class GalleryView extends React.Component {
         console.error(error);
       });
   }
+
+  updateText = (category, index) => {
+    fetch("./text/" + category["value"] + "/" + (index + 1).toString() + ".json")
+      .then(response => {
+        // Gjør det om til json.
+        return response.json()
+      })
+      .then(response => {
+        this.setState({
+          text: response
+        })
+      }).catch(function (error) {
+        console.error(error);
+      });
+  }
+
   componentWillReceiveProps() {
     // TODO: Denne får bare gamle updates fordi WILL receive, den har ikke fått nye props enda. Fiks det
+
     if (typeof this.props.imgCategory !== "undefined") {
+      // Hvis du har valgt en kategori for bildene. Så kjøres denne.
       this.updateImage(this.props.imgCategory, this.props.tabIndex);
+    }
+    if (typeof this.props.textCategory !== "undefined") {
+      this.updateText(this.props.textCategory, this.props.tabIndex);
     }
   }
   render() {
     return (
       <div>
-        {this.state.img && <img src={this.state.img}></img>}
-        <p />
+        {this.state.img && <img src={this.state.img} alt="A beautiful gallery"></img>}
+        {this.state.text && <p>{this.state.text["text"]}</p>}
+        {this.state.text && <p>{this.state.text["source"]}</p>}
         <AudioPlayer />
       </div>
     );
