@@ -19,7 +19,7 @@ class App extends Component {
       { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
 
-    
+
   }
 
    fetchData = async (url) => {
@@ -29,7 +29,7 @@ class App extends Component {
     }
     let response =(await fetch(url));
     return response;
-  
+
   }
 
   updateSelectedCategory = (category, value) => {
@@ -57,7 +57,7 @@ class App extends Component {
     });
     return (
       <div>
-        <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
+        <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
         <div id="container">
           <div id="categories">
             <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
