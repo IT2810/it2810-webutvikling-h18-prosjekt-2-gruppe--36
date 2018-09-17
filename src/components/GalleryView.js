@@ -76,7 +76,7 @@ class GalleryView extends React.Component {
 
   render() {
     return (
-      <div className="galleryView">
+      <div className="galleryView container">
         {this.state.img && <img src={this.state.img.data} alt="A beautiful gallery"></img>}
         {this.state.text && <p>{this.state.text.data.text}</p>}
         {this.state.text && <p>{this.state.text.data.source}</p>}

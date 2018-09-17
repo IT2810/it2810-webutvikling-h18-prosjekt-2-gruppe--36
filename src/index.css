@@ -1,7 +1,7 @@
 #root {
   margin: auto;
   font-size: 1.25em;
-  color: #3C4345;
+  color: #3c4345;
   margin: 0;
   padding: 0;
 }
@@ -10,6 +10,8 @@ body {
   font-family: Lato, Georgia;
   font-size: 1em;
   line-height: 1.5em;
+  font-family: sans-serif;
+  background-color: #f4f4f4;
 }
 
 .tabs button {
@@ -49,4 +51,80 @@ body {
   .galleryView {
     flex: 2;
   }
+}
+
+.container {
+  padding: 25px;
+  background-color: white;
+  margin: 15px;
+  color: #232323;
+}
+button {
+  background-color: #242434;
+  border-color: #242434;
+  color: white;
+  font-family: Lato,Helvetica,Arial,sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 70px;
+  margin: 12px;
+  height: 60px;
+  line-height: 34px;
+  border: 0;
+  border-radius: 0;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  word-break: initial;
+  white-space: nowrap;
+}
+h2 {
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.form-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f1f1;
+  color: #666;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 7px;
+  outline: none;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.form-radio:checked::before {
+  position: absolute;
+  font: 13px/1 "Lato", sans-serif;
+  left: 11px;
+  top: 7px;
+  content: "\02143";
+  transform: rotate(40deg);
+}
+.form-radio:hover {
+  background-color: #f7f7f7;
+}
+.form-radio:checked {
+  background-color: #f1f1f1;
+}
+label {
+  font: 300 16px/1.7 "Lato", sans-serif;
+  color: #666;
+  cursor: pointer;
 }
