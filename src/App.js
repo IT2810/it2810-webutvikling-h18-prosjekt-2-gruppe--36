@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import CategorySelector from "./components/CategorySelector";
 import TabController from "./components/TabController";
 import GalleryView from "./components/GalleryView";
 import 'typeface-lato';
+import CategoryController from "./components/CategoryController";
 
 class App extends Component {
   constructor(props) {
@@ -59,11 +59,7 @@ class App extends Component {
       <div>
         <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
         <div id="container">
-          <div id="categories" className="container">
-            <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
-            <CategorySelector title="Audio" categories={this.categoryTypes.find(item => item.title === "Audio")} updateSelectedCategory={this.updateSelectedCategory} />
-            <CategorySelector title="Text" categories={this.categoryTypes.find(item => item.title === "Text")} updateSelectedCategory={this.updateSelectedCategory} />
-          </div>
+          <CategoryController categoryTypes={this.categoryTypes} updateSelectedCategory={this.updateSelectedCategory}/>
           <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>
