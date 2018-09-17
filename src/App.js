@@ -3,6 +3,7 @@ import "./App.css";
 import CategorySelector from "./components/CategorySelector";
 import TabController from "./components/TabController";
 import GalleryView from "./components/GalleryView";
+import 'typeface-lato';
 
 class App extends Component {
   constructor(props) {
@@ -56,15 +57,14 @@ class App extends Component {
     });
     return (
       <div>
-        <div>
-          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} tabIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
-          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} fetchData={this.fetchData} tabIndex={this.state.tabIndex} />
-        </div>
-
-        <div>
-          <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Audio" categories={this.categoryTypes.find(item => item.title === "Audio")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Text" categories={this.categoryTypes.find(item => item.title === "Text")} updateSelectedCategory={this.updateSelectedCategory} />
+        <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
+        <div id="container">
+          <div id="categories">
+            <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
+            <CategorySelector title="Audio" categories={this.categoryTypes.find(item => item.title === "Audio")} updateSelectedCategory={this.updateSelectedCategory} />
+            <CategorySelector title="Text" categories={this.categoryTypes.find(item => item.title === "Text")} updateSelectedCategory={this.updateSelectedCategory} />
+          </div>
+          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>
     );
