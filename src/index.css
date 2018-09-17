@@ -12,6 +12,7 @@ body {
   line-height: 1.5em;
   font-family: sans-serif;
   background-color: #f4f4f4;
+  word-wrap: break-word;
 }
 
 .tabs button {
@@ -69,6 +70,12 @@ body {
   background-color: white;
   margin: 15px;
   color: #232323;
+}
+
+img{
+  width: 60%;
+  display: block;
+  margin: 0 auto;
 }
 
 h2 {

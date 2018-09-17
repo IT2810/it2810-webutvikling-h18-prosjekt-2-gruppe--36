@@ -18,8 +18,8 @@ class GalleryView extends React.Component {
           data: "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(data))),
           name: category.value + this.props.tabIndex
         }
-        
-      });     
+
+      });
     }).catch((error) => {
       console.error(error);
     });
@@ -79,7 +79,7 @@ class GalleryView extends React.Component {
       <div className="galleryView container">
         {this.state.img && <img src={this.state.img.data} alt="A beautiful gallery"></img>}
         {this.state.text && <p>{this.state.text.data.text}</p>}
-        {this.state.text && <p>{this.state.text.data.source}</p>}
+        {this.state.text && <a href={this.state.text.data.source}>{this.state.text.data.source}</a>}
         {this.state.sound && <audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" />}
       </div>
     );
