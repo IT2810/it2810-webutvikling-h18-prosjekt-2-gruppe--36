@@ -11,11 +11,24 @@ class App extends Component {
       categories: [],
       tabIndex: 0
     };
+    this.fetchedData = {}
     this.categoryTypes = [
       { title: "Pictures", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
       { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
+
+    
+  }
+
+   fetchData = async (url) => {
+    let fetchedData = this.fetchedData[url]
+    if(fetchedData){
+      return fetchedData
+    }
+    let response =(await fetch(url));
+    return response;
+  
   }
 
   updateSelectedCategory = (category, value) => {
@@ -27,7 +40,7 @@ class App extends Component {
   };
 
   updateSelectedTab = tabIndex => {
-    this.setState({ tabIndex: parseInt(tabIndex) });
+    this.setState({ tabIndex: parseInt(tabIndex, 10) });
   };
 
   render() {
@@ -44,8 +57,8 @@ class App extends Component {
     return (
       <div>
         <div>
-          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} updateSelectedTab={this.updateSelectedTab} />
-          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex}/>
+          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} tabIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
+          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} fetchData={this.fetchData} tabIndex={this.state.tabIndex} />
         </div>
 
         <div>

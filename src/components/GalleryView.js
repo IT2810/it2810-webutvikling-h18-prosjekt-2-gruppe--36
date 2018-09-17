@@ -8,32 +8,37 @@ class GalleryView extends React.Component {
   }
 
   updateImage = (category, index) => {
-    // Bruker fetch for å få tak i bildet med ajax.
-    fetch("./img/" + category["value"] + "/" + (index + 1).toString() + ".svg")
-      .then(response => {
-        return response.text()
-      })
-      .then(response => {
-        this.setState({
-          // Setter img staten til svg-filen konvertert til base64 så vi kan lett sette den inn i src til img taggen.
-          img: "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(response)))
-        })
-      }).catch(function (error) {
-        console.error(error);
-      });
+    this.props.fetchData("./img/" + category.value + "/" + (index + 1) + ".svg")
+    .then(data => {
+      return data.text()
+    }).then(data => {
+      this.setState({
+        // Setter img staten til svg-filen konvertert til base64 så vi kan lett sette den inn i src til img taggen.
+        img: {
+          data: "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(data))),
+          name: category.value + this.props.tabIndex
+        }
+        
+      });     
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   updateText = (category, index) => {
-    fetch("./text/" + category["value"] + "/" + (index + 1).toString() + ".json")
-      .then(response => {
+    this.props.fetchData("./text/" + category.value + "/" + (index + 1) + ".json")
+      .then(data => {
         // Gjør det om til json.
-        return response.json()
+        return data.json()
       })
-      .then(response => {
+      .then(data => {
         this.setState({
-          text: response
+          text: {
+            data: data,
+            name: category.value + this.props.tabIndex
+          }
         })
-      }).catch(function (error) {
+      }).catch((error) => {
         console.error(error);
       });
   }
@@ -41,30 +46,41 @@ class GalleryView extends React.Component {
   updateSound = (category, index) => {
     // Denne skulle ikke fetche via ajax.
     this.setState({
-      sound: "./sound/" + category["value"] + "/" + (index + 1).toString() + ".mp3"
+      sound: {
+        data: "./sound/" + category.value + "/" + (index + 1) + ".mp3",
+        name: category.value + this.props.tabIndex
+      }
     });
   }
 
-  componentWillReceiveProps() {
-    // TODO: Denne får bare gamle updates fordi WILL receive, den har ikke fått nye props enda. Fiks det
-    if (typeof this.props.imgCategory !== "undefined") {
-      // Hvis du har valgt en kategori for bildene. Så kjøres denne.
-      this.updateImage(this.props.imgCategory, this.props.tabIndex);
+  componentDidUpdate() {
+    if(!this.state.img || this.state.img.name !== this.props.imgCategory.value + this.props.tabIndex) {
+      if (typeof this.props.imgCategory !== "undefined") {
+        // Hvis du har valgt en kategori for bildene. Så kjøres denne.
+        this.updateImage(this.props.imgCategory, this.props.tabIndex);
+      }
     }
-    if (typeof this.props.textCategory !== "undefined") {
-      this.updateText(this.props.textCategory, this.props.tabIndex);
+    if(!this.state.text || this.state.text.name !== this.props.textCategory.value + this.props.tabIndex) {
+      if (typeof this.props.textCategory !== "undefined") {
+        this.updateText(this.props.textCategory, this.props.tabIndex);
+      }
     }
-    if (typeof this.props.soundCategory !== "undefined") {
-      this.updateSound(this.props.soundCategory, this.props.tabIndex);
+    if(!this.state.sound || this.state.sound.name !== this.props.soundCategory.value + this.props.tabIndex) {
+      if (typeof this.props.soundCategory !== "undefined") {
+        this.updateSound(this.props.soundCategory, this.props.tabIndex);
+      }
     }
   }
+
+
+
   render() {
     return (
       <div>
-        {this.state.img && <img src={this.state.img} alt="A beautiful gallery"></img>}
-        {this.state.text && <p>{this.state.text["text"]}</p>}
-        {this.state.text && <p>{this.state.text["source"]}</p>}
-        {this.state.sound && <audio ref="audio_tag" src={this.state.sound} controls autoPlay type="audio/mpeg" />}
+        {this.state.img && <img src={this.state.img.data} alt="A beautiful gallery"></img>}
+        {this.state.text && <p>{this.state.text.data.text}</p>}
+        {this.state.text && <p>{this.state.text.data.source}</p>}
+        {this.state.sound && <audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" />}
       </div>
     );
   }
