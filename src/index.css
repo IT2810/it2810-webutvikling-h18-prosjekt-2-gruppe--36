@@ -7,17 +7,20 @@
 }
 
 body {
-  font-family: Lato, Georgia;
+  font-family: "Lato", Georgia;
   font-size: 1em;
   line-height: 1.5em;
-  font-family: sans-serif;
   background-color: #f4f4f4;
   word-wrap: break-word;
+}
+h1 {
+  text-align: center;
+  font-weight: 400;
 }
 
 button {
   flex: 1;
-  flex-basis: 50%;
+  flex-basis: 49%; /* 49 instead of 50 to support for browsers like Safari */
   cursor: pointer;
   outline: none;
   border-color: #242434;
@@ -34,7 +37,26 @@ button {
   border-style: solid;
   -webkit-appearance: none;
   word-break: initial;
-  }
+}
+
+audio {
+  display: flex;
+  align-content: flex-end;
+  float: right;
+}
+
+a {
+  font-weight: 100;
+  font-style: italic;
+  color: black;
+}
+
+
+p {
+  font-weight: 300;
+  line-height: 1.5em;
+  font-family: "Lato", Georgia;
+}
 
 .tab-button {
   background-color: #242434;
@@ -61,7 +83,8 @@ button {
     flex: 2;
   }
   .tabs button {
-    flex-basis: 25%;
+    flex-basis: 24%; 
+    /* 24 instead of 25 to support for browsers like Safari */
   }
   body {
     width: 80%;
@@ -76,16 +99,20 @@ button {
   .hideCategories {
     display: none;
   }
+  
+  .audioItem {
+    margin: auto;
+  }
 }
 
 .container {
-  padding: 25px;
+  padding: 27px;
   background-color: white;
   margin: 15px;
   color: #232323;
 }
 
-img{
+img {
   width: 60%;
   display: block;
   margin: 0 auto;
@@ -93,7 +120,8 @@ img{
 
 h2 {
   font-weight: 300;
-  margin-bottom: 5px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 .form-radio {
   -webkit-appearance: none;
@@ -140,4 +168,22 @@ label {
 }
 .hamburgerMenuBtn {
   font-size: 2em;
+  position: absolute;
+  top: 10px;
+}
+
+.audioBox {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
+}
+.imageContainer {
+  padding: 10px;
+  max-height: 600px;
+  background: #f3f3f3;
+  border-radius: -2px;
+}
+
+img {
+  max-height: 600px; 
 }

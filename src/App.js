@@ -18,7 +18,7 @@ class App extends Component {
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
       { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
-
+    
 
   }
 
@@ -57,9 +57,10 @@ class App extends Component {
     });
     return (
       <div>
+        <h1>Art gallery</h1>
         <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
         <div id="container">
-          <CategoryController categoryTypes={this.categoryTypes} updateSelectedCategory={this.updateSelectedCategory}/>
+         <CategoryController categoryTypes={this.categoryTypes} updateSelectedCategory={this.updateSelectedCategory}/>
           <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>

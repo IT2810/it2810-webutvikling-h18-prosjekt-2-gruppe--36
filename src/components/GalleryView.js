@@ -78,10 +78,10 @@ class GalleryView extends React.Component {
     return (
       <div className="galleryView container">
         <h2>Gallery</h2>
-        {this.state.img && <img src={this.state.img.data} alt="A beautiful gallery"></img>}
+        {this.state.img && <div class="imageContainer"><img src={this.state.img.data} alt="A beautiful gallery"></img></div>}
         {this.state.text && <p>{this.state.text.data.text}</p>}
-        {this.state.text && <a href={this.state.text.data.source}>{this.state.text.data.source}</a>}
-        {this.state.sound && <audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" />}
+        {this.state.text && <a href={this.state.text.data.source}> Source: {this.state.text.data.source}</a>}
+        {this.state.sound && <div class="audioBox"><div class="audioItem"><audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" /></div></div>}
       </div>
     );
   }
