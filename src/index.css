@@ -72,6 +72,12 @@ button {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .hideCategories {
+    display: none;
+  }
+}
+
 .container {
   padding: 25px;
   background-color: white;
