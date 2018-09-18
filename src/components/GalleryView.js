@@ -17,7 +17,6 @@ class GalleryView extends React.Component {
           data: data,
           name: category.value + this.props.tabIndex
         }
-
       });
     }).catch((error) => {
       console.error(error);
@@ -50,6 +49,10 @@ class GalleryView extends React.Component {
         name: category.value + this.props.tabIndex
       }
     });
+  }
+
+  componentDidMount() {
+    this.componentDidUpdate();
   }
 
   componentDidUpdate() {

@@ -8,21 +8,28 @@ import CategoryController from "./components/CategoryController";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: [],
-      tabIndex: 0
-    };
     this.fetchedData = {}
     this.categoryTypes = [
       { title: "Pictures", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
       { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
-    
-
+    this.state = {
+      categories: [
+        this.getRandomCategory("Pictures"),
+        this.getRandomCategory("Text"),
+        this.getRandomCategory("Audio")
+      ],
+      tabIndex: 0
+    };
   }
 
-   fetchData = async (url) => {
+  getRandomCategory = (category) =>{
+    let values = this.categoryTypes.find(item => item.title === category).categories;
+    return {category: category, value: values[Math.floor(Math.random()*values.length)].catalogName};
+  }
+
+  fetchData = async (url) => {
     let fetchedData = this.fetchedData[url]
     if(fetchedData){
       return fetchedData
@@ -45,6 +52,13 @@ class App extends Component {
   };
 
   render() {
+    if(this.state.categories.length === 0){
+      this.setState({categories: [
+        this.getRandomCategory("Pictures"),
+        this.getRandomCategory("Text"),
+        this.getRandomCategory("Audio")
+      ]});
+    }
     let imgCategory = this.state.categories.find(item => {
       return item.category === this.categoryTypes[0]["title"];
     });
@@ -60,7 +74,7 @@ class App extends Component {
         <h1>Art gallery</h1>
         <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
         <div id="container">
-         <CategoryController categoryTypes={this.categoryTypes} updateSelectedCategory={this.updateSelectedCategory}/>
+         <CategoryController categoryTypes={this.categoryTypes} selectedCategory={this.state.categories}  updateSelectedCategory={this.updateSelectedCategory}/>
           <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>

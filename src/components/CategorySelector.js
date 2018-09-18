@@ -10,7 +10,7 @@ class CategorySelector extends React.Component {
       let key = this.props.title + index;
       return (
         <div key={key}>
-          <input onChange={this.updateSelectedCategory} type="radio" id={key} className="form-radio" name={this.props.title} value={category.catalogName} />
+          <input onChange={this.updateSelectedCategory} defaultChecked={this.props.selectedCategory.find(item => item.category === this.props.title && item.value === category.catalogName)} type="radio" id={key} className="form-radio" name={this.props.title} value={category.catalogName} />
           <label htmlFor={key}>{category.displayName}</label>
         </div>
       );
