@@ -17,8 +17,8 @@ class GalleryView extends React.Component {
           data: data,
           name: category.value + this.props.tabIndex
         }
-        
-      });     
+
+      });
     }).catch((error) => {
       console.error(error);
     });
@@ -75,11 +75,12 @@ class GalleryView extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.img && <div dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
+      <div className="galleryView container">
+        <h2>Gallery</h2>
+        {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
         {this.state.text && <p>{this.state.text.data.text}</p>}
-        {this.state.text && <p>{this.state.text.data.source}</p>}
-        {this.state.sound && <audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" />}
+        {this.state.text && <a href={this.state.text.data.source}> Source: {this.state.text.data.source}</a>}
+        {this.state.sound && <div className="audioBox"><div className="audioItem"><audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" /></div></div>}
       </div>
     );
   }

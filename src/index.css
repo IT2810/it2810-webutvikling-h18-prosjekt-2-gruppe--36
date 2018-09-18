@@ -1,5 +1,185 @@
-body {
+#root {
+  margin: auto;
+  font-size: 1.25em;
+  color: #3c4345;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+}
+
+body {
+  font-family: "Lato", Georgia;
+  font-size: 1em;
+  line-height: 1.5em;
+  background-color: #f4f4f4;
+  word-wrap: break-word;
+}
+h1 {
+  text-align: center;
+  font-weight: 400;
+}
+
+button {
+  flex: 1;
+  flex-basis: 49%; /* 49 instead of 50 to support for browsers like Safari */
+  cursor: pointer;
+  outline: none;
+  border-color: #242434;
+  color: white;
+  font-family: Lato,Helvetica,Arial,sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  height: 60px;
+  border: 0;
+  border-radius: 0;
+  font-size: 1rem;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  word-break: initial;
+}
+
+audio {
+  display: flex;
+  align-content: flex-end;
+  float: right;
+}
+
+a {
+  font-style: italic;
+  color: black;
+}
+
+
+p {
+  font-weight: 300;
+  line-height: 1.5em;
+  font-family: "Lato", Georgia;
+}
+
+.tab-button {
+  background-color: #242434;
+}
+
+.tabs button:hover {
+  background-color: #777;
+}
+
+.tab-active {
+  background-color: #888;
+}
+
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+  #container {
+    display: flex;
+  }
+
+  #categories {
+    flex: 1;
+  }
+  .galleryView {
+    flex: 2;
+  }
+  .tabs button {
+    flex-basis: 24%; 
+    /* 24 instead of 25 to support for browsers like Safari */
+  }
+  body {
+    width: 80%;
+    margin: auto;
+  }
+  .hamburgerMenuBtn {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .hideCategories {
+    display: none;
+  }
+  
+  .audioItem {
+    margin: auto;
+  }
+}
+
+.container {
+  padding: 27px;
+  background-color: white;
+  margin: 15px;
+  color: #232323;
+}
+
+svg {
+  width: 60%;
+  display: block;
+  margin: 0 auto;
+  max-height: 600px; 
+}
+
+h2 {
+  font-weight: 300;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.form-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f1f1;
+  color: #666;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 7px;
+  outline: none;
+}
+
+.tabs {
+  flex-flow: row wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.form-radio:checked::before {
+  position: absolute;
+  font: 13px/1 "Lato", sans-serif;
+  left: 11px;
+  top: 7px;
+  content: "\02143";
+  transform: rotate(40deg);
+}
+.form-radio:hover {
+  background-color: #f7f7f7;
+}
+.form-radio:checked {
+  background-color: #f1f1f1;
+}
+label {
+  font: 300 16px/1.7 "Lato", sans-serif;
+  color: #666;
+  cursor: pointer;
+}
+.hamburgerMenuBtn {
+  font-size: 2em;
+  position: absolute;
+  top: 10px;
+}
+
+.audioBox {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
+}
+.imageContainer {
+  padding: 10px;
+  max-height: 600px;
+  background: #f3f3f3;
+  border-radius: -2px;
 }

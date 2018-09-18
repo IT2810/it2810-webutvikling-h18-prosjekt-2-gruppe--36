@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import CategorySelector from "./components/CategorySelector";
 import TabController from "./components/TabController";
 import GalleryView from "./components/GalleryView";
+import 'typeface-lato';
+import CategoryController from "./components/CategoryController";
 
 class App extends Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class App extends Component {
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
       { title: "Audio", categories: [{displayName: "Human", catalogName: "human"},{displayName: "Music", catalogName: "music"}, {displayName: "Nature", catalogName: "nature"}] }
     ];
-
     
+
   }
 
    fetchData = async (url) => {
@@ -28,7 +29,7 @@ class App extends Component {
     }
     let response =(await fetch(url));
     return response;
-  
+
   }
 
   updateSelectedCategory = (category, value) => {
@@ -56,15 +57,11 @@ class App extends Component {
     });
     return (
       <div>
-        <div>
-          <TabController tabs={["Tab1", "Tab2", "Tab3", "Tab4"]} tabIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
-          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} fetchData={this.fetchData} tabIndex={this.state.tabIndex} />
-        </div>
-
-        <div>
-          <CategorySelector title="Pictures" categories={this.categoryTypes.find(item => item.title === "Pictures")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Audio" categories={this.categoryTypes.find(item => item.title === "Audio")} updateSelectedCategory={this.updateSelectedCategory} />
-          <CategorySelector title="Text" categories={this.categoryTypes.find(item => item.title === "Text")} updateSelectedCategory={this.updateSelectedCategory} />
+        <h1>Art gallery</h1>
+        <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
+        <div id="container">
+         <CategoryController categoryTypes={this.categoryTypes} updateSelectedCategory={this.updateSelectedCategory}/>
+          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>
     );
