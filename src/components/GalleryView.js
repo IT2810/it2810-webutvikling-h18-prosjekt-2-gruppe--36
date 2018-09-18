@@ -13,9 +13,8 @@ class GalleryView extends React.Component {
       return data.text()
     }).then(data => {
       this.setState({
-        // Setter img staten til svg-filen konvertert til base64 så vi kan lett sette den inn i src til img taggen.
         img: {
-          data: "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(data))),
+          data: data,
           name: category.value + this.props.tabIndex
         }
         
@@ -77,7 +76,7 @@ class GalleryView extends React.Component {
   render() {
     return (
       <div>
-        {this.state.img && <img src={this.state.img.data} alt="A beautiful gallery"></img>}
+        {this.state.img && <div dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
         {this.state.text && <p>{this.state.text.data.text}</p>}
         {this.state.text && <p>{this.state.text.data.source}</p>}
         {this.state.sound && <audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" />}
