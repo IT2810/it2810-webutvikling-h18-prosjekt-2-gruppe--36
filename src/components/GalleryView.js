@@ -74,7 +74,13 @@ class GalleryView extends React.Component {
     }
   }
 
+  playMusic = () => {
+    this.audio_tag.play();
+  }
 
+  pauseMusic = () => {
+    this.audio_tag.pause();
+  }
 
   render() {
     return (
@@ -83,7 +89,10 @@ class GalleryView extends React.Component {
         {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
         {this.state.text && <p>{this.state.text.data.text}</p>}
         {this.state.text && <a href={this.state.text.data.source}> Source: {this.state.text.data.source}</a>}
-        {this.state.sound && <div className="audioBox"><div className="audioItem"><audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" /></div></div>}
+        {this.state.sound && <div className="audioBox"><div className="audioItem">
+          <button className = "tab-button" onClick={this.playMusic}>Play sound</button>
+          <button className = "tab-button" onClick={this.pauseMusic}>Pause sound</button>
+          <audio ref={input => { this.audio_tag = input;}} src={this.state.sound.data} autoPlay type="audio/mpeg" id="audioPlayer" /></div></div>}
       </div>
     );
   }
