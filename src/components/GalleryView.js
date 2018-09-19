@@ -63,20 +63,21 @@ class GalleryView extends React.Component {
     if (!this.state.sound || this.state.sound.name !== this.props.soundCategory.value + this.props.tabIndex) {
       if (typeof this.props.soundCategory !== "undefined") {
         this.updateSound(this.props.soundCategory, this.props.tabIndex);
+        this.setState({ pausedMusic: false });
       }
     }
   }
 
   toggleMusic = () => {
-    // Bare endrer state på playingMusic og player eller pauser musikken.
-    this.setState(prevState => ({
-      playingMusic: !prevState.playingMusic
-    }));
-    if (this.state.playingMusic) {
+    if (this.state.pausedMusic) {
       this.audio_tag.play();
     } else {
       this.audio_tag.pause();
     }
+    // Bare endrer state på pausedMusic og player eller pauser musikken.
+    this.setState(prevState => ({
+      pausedMusic: !prevState.pausedMusic
+    }));
   }
 
   render() {
@@ -92,7 +93,7 @@ class GalleryView extends React.Component {
         {this.state.sound && (
           <div className="audioBox">
             <div className="audioItem">
-              <button className="tab-button" onClick={this.toggleMusic}>{this.state.playingMusic ? "Play Sound" : "Pause Sound"}</button>
+              <button className="tab-button" onClick={this.toggleMusic}>{this.state.pausedMusic ? "Play Sound" : "Pause Sound"}</button>
               <audio
                 ref={input => {
                   this.audio_tag = input;
