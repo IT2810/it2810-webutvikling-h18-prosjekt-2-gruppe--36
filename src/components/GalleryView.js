@@ -74,12 +74,15 @@ class GalleryView extends React.Component {
     }
   }
 
-  playMusic = () => {
-    this.audio_tag.play();
-  }
-
-  pauseMusic = () => {
-    this.audio_tag.pause();
+  toggleMusic = () => {
+    this.setState(prevState => ({
+      playingMusic: !prevState.playingMusic
+    }));
+    if (this.state.playingMusic) {
+      this.audio_tag.play();
+    } else {
+      this.audio_tag.pause();
+    }
   }
 
   render() {
@@ -89,10 +92,9 @@ class GalleryView extends React.Component {
         {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
         {this.state.text && <p>{this.state.text.data.text}</p>}
         {this.state.text && <a href={this.state.text.data.source}> Source: {this.state.text.data.source}</a>}
-        {this.state.sound && <div className="audioBox"><div className="audioItem">
-          <button className = "tab-button" onClick={this.playMusic}>Play sound</button>
-          <button className = "tab-button" onClick={this.pauseMusic}>Pause sound</button>
-          <audio ref={input => { this.audio_tag = input;}} src={this.state.sound.data} autoPlay type="audio/mpeg" id="audioPlayer" /></div></div>}
+        {this.state.sound && <div className="audioBox"><div className="audioItem tabs">
+          <button className = "tab-button" onClick={this.toggleMusic}>{this.state.playingMusic ? "Play Sound" : "Pause Sound"}</button>
+          <audio ref={input => { this.audio_tag = input;}} src={this.state.sound.data} autoPlay type="audio/mpeg" id="audioPlayer" loop /></div></div>}
       </div>
     );
   }
