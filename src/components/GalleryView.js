@@ -8,10 +8,15 @@ class GalleryView extends React.Component {
 
   updateImage = (category, index) => {
     let url = "./img/" + category.value + "/" + (index + 1) + ".svg";
+    // Lager urlen med å bruke categorien valgt og hvilken index det er.
+
     this.props.fetchData(url, false);
+    // Bruker fetchData som legger dataen i fetchedData.
+
     this.setState({
       img: {
         url: url,
+        // Setter bare state til urlen som vi kan hente fetchedData igjen i render().
         name: category.value + this.props.tabIndex
       }
     });
@@ -43,6 +48,7 @@ class GalleryView extends React.Component {
   }
 
   componentDidUpdate() {
+    // Hver gang en oppdatering kjøres så blir denne funksjonen kjørt så vi kan fetche nye bilder/tekst/lyd.
     if (!this.state.img || this.state.img.name !== this.props.imgCategory.value + this.props.tabIndex) {
       if (typeof this.props.imgCategory !== "undefined") {
         // Hvis du har valgt en kategori for bildene. Så kjøres denne.
@@ -62,6 +68,7 @@ class GalleryView extends React.Component {
   }
 
   toggleMusic = () => {
+    // Bare endrer state på playingMusic og player eller pauser musikken.
     this.setState(prevState => ({
       playingMusic: !prevState.playingMusic
     }));
@@ -85,12 +92,7 @@ class GalleryView extends React.Component {
         {this.state.sound && (
           <div className="audioBox">
             <div className="audioItem">
-              <button className="tab-button" onClick={this.playMusic}>
-                Play sound
-              </button>
-              <button className="tab-button" onClick={this.pauseMusic}>
-                Pause sound
-              </button>
+              <button className="tab-button" onClick={this.toggleMusic}>{this.state.playingMusic ? "Play Sound" : "Pause Sound"}</button>
               <audio
                 ref={input => {
                   this.audio_tag = input;

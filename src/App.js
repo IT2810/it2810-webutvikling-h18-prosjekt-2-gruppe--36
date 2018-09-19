@@ -8,6 +8,7 @@ import CategoryController from "./components/CategoryController";
 class App extends Component {
   constructor(props) {
     super(props);
+    // categoryTypes virker slikt: title er hva katorien heter og er teksten som blir vist over radiobuttonsene. Så har de 3 objekter i et array categories hvor det er hver kategori med et displayName som er navnet som blir vist på siden og catelogName som er hva mappen heter.
     this.categoryTypes = [
       { title: "Pictures", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
@@ -15,22 +16,23 @@ class App extends Component {
     ];
     this.state = {
       categories: [
+        // Når du først åpner nettsiden skal du få en tilfeldig valgt kategori.
         this.getRandomCategory("Pictures"),
         this.getRandomCategory("Text"),
         this.getRandomCategory("Audio")
       ],
-      fetchedData: {},
+      fetchedData: {}, // Denne brukes for caching.
       tabIndex: 0
     };
   }
 
-  getRandomCategory = (category) =>{
+  getRandomCategory = (category) => {
     let values = this.categoryTypes.find(item => item.title === category).categories;
     return {category: category, value: values[Math.floor(Math.random()*values.length)].catalogName};
   }
 
   fetchData = async (url, json) => {
-    console.log(this.state.fetchedData)
+    // Bruker denne funksjonen for å fetche data med ajax og cache det. 
     if(!this.state.fetchedData[url]){
       let fetchedData =  this.state.fetchedData;
       fetchedData[url] = "";
@@ -42,6 +44,7 @@ class App extends Component {
   }
 
   updateSelectedCategory = (category, value) => {
+    // Når du velger en kategori så blir den lagret i staten hvilken som ble valgt så andre komponenter kan bruke den informasjonen til å vise riktig bildet/lyd/tekst.
     let categories = this.state.categories.filter(item => {
       return item.category !== category;
     });
@@ -54,7 +57,7 @@ class App extends Component {
   };
 
   render() {
-    if(this.state.categories.length === 0){
+    if(this.state.categories.length === 0) {
       this.setState({categories: [
         this.getRandomCategory("Pictures"),
         this.getRandomCategory("Text"),
@@ -62,6 +65,7 @@ class App extends Component {
       ]});
     }
     let imgCategory = this.state.categories.find(item => {
+      // finn riktig catalogName og displayName for kategori valgt.
       return item.category === this.categoryTypes[0]["title"];
     });
     let textCategory = this.state.categories.find(item => {

@@ -9,6 +9,7 @@ class CategoryController extends React.Component {
   }
 
   updateBtnActive = (event) => {
+    // Når du trykker på hamburger knappen så blir btnActive togglet. Og så endret om categories div'en blir synlig eller ikke (i cssen) med å endre klassen. 
     this.setState(prevState => ({
       btnActive: !prevState.btnActive
     }));

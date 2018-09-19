@@ -13,6 +13,7 @@ body {
   background-color: #f4f4f4;
   word-wrap: break-word;
 }
+
 h1 {
   text-align: center;
   font-weight: 400;
@@ -50,7 +51,6 @@ a {
   color: black;
 }
 
-
 p {
   font-weight: 300;
   line-height: 1.5em;
@@ -67,41 +67,6 @@ p {
 
 .tab-active {
   background-color: #888;
-}
-
-/* For desktop: */
-@media only screen and (min-width: 768px) {
-  #container {
-    display: flex;
-  }
-
-  #categories {
-    flex: 1;
-  }
-  .galleryView {
-    flex: 2;
-  }
-  .tabs button {
-    flex-basis: 24%; 
-    /* 24 instead of 25 to support for browsers like Safari */
-  }
-  body {
-    width: 80%;
-    margin: auto;
-  }
-  .hamburgerMenuBtn {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .hideCategories {
-    display: none;
-  }
-  
-  .audioItem {
-    margin: auto;
-  }
 }
 
 .container {
@@ -123,6 +88,7 @@ h2 {
   margin-top: 30px;
   margin-bottom: 15px;
 }
+
 .form-radio {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -147,6 +113,7 @@ h2 {
   align-items: center;
   justify-content: space-around;
 }
+
 .form-radio:checked::before {
   position: absolute;
   font: 13px/1 "Lato", sans-serif;
@@ -155,17 +122,21 @@ h2 {
   content: "\02143";
   transform: rotate(40deg);
 }
+
 .form-radio:hover {
   background-color: #f7f7f7;
 }
+
 .form-radio:checked {
   background-color: #f1f1f1;
 }
+
 label {
   font: 300 16px/1.7 "Lato", sans-serif;
   color: #666;
   cursor: pointer;
 }
+
 .hamburgerMenuBtn {
   font-size: 2em;
   position: absolute;
@@ -177,9 +148,51 @@ label {
   align-items: center;
   margin: 20px 0px 0px 0px;
 }
+
 .imageContainer {
   padding: 10px;
   max-height: 600px;
   background: #f3f3f3;
   border-radius: -2px;
+}
+
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+  #container {
+    display: flex;
+  }
+
+  #categories {
+    flex: 1;
+  }
+
+  .galleryView {
+    flex: 2;
+  }
+
+  .tabs button {
+    flex-basis: 24%; 
+    /* 24 instead of 25 to support for browsers like Safari */
+  }
+
+  body {
+    width: 80%;
+    margin: auto;
+  }
+
+  /* Ikke vis hamburgerBtn for desktop */
+  .hamburgerMenuBtn {
+    display: none;
+  }
+}
+/* For små skjermer eller mobil. */
+@media only screen and (max-width: 768px) {
+  /* Bare små skjermer skal ha mulighet til å skjule kategori-velgern.*/
+  .hideCategories {
+    display: none;
+  }
+  
+  .audioItem {
+    margin: auto;
+  }
 }
