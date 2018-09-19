@@ -3,8 +3,7 @@ import React from "react";
 class GalleryView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {};
   }
 
   updateImage = (category, index) => {
@@ -16,19 +15,18 @@ class GalleryView extends React.Component {
         name: category.value + this.props.tabIndex
       }
     });
-   
-  }
+  };
 
   updateText = (category, index) => {
     let url = "./text/" + category.value + "/" + (index + 1) + ".json";
-    this.props.fetchData(url, true)
+    this.props.fetchData(url, true);
     this.setState({
       text: {
         url: url,
         name: category.value + this.props.tabIndex
       }
-    })
-  }
+    });
+  };
 
   updateSound = (category, index) => {
     // Denne skulle ikke fetche via ajax.
@@ -38,42 +36,70 @@ class GalleryView extends React.Component {
         name: category.value + this.props.tabIndex
       }
     });
-  }
+  };
 
   componentDidMount() {
     this.componentDidUpdate();
   }
 
   componentDidUpdate() {
-    if(!this.state.img || this.state.img.name !== this.props.imgCategory.value + this.props.tabIndex) {
+    if (!this.state.img || this.state.img.name !== this.props.imgCategory.value + this.props.tabIndex) {
       if (typeof this.props.imgCategory !== "undefined") {
         // Hvis du har valgt en kategori for bildene. Så kjøres denne.
         this.updateImage(this.props.imgCategory, this.props.tabIndex);
       }
     }
-    if(!this.state.text || this.state.text.name !== this.props.textCategory.value + this.props.tabIndex) {
+    if (!this.state.text || this.state.text.name !== this.props.textCategory.value + this.props.tabIndex) {
       if (typeof this.props.textCategory !== "undefined") {
         this.updateText(this.props.textCategory, this.props.tabIndex);
       }
     }
-    if(!this.state.sound || this.state.sound.name !== this.props.soundCategory.value + this.props.tabIndex) {
+    if (!this.state.sound || this.state.sound.name !== this.props.soundCategory.value + this.props.tabIndex) {
       if (typeof this.props.soundCategory !== "undefined") {
         this.updateSound(this.props.soundCategory, this.props.tabIndex);
       }
     }
   }
 
+  playMusic = () => {
+    this.audio_tag.play();
+  };
 
+  pauseMusic = () => {
+    this.audio_tag.pause();
+  };
 
   render() {
-  
     return (
       <div className="galleryView container">
         <h2>Gallery</h2>
         {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.props.fetchedData[this.state.img.url] }} />}
         {this.state.text && this.props.fetchedData[this.state.text.url] && <p>{this.props.fetchedData[this.state.text.url].text}</p>}
-        {this.state.text && this.props.fetchedData[this.state.text.url] && <a href={this.props.fetchedData[this.state.text.url].source}> Source: {this.props.fetchedData[this.state.text.url].source}</a>}
-        {this.state.sound && <div className="audioBox"><div className="audioItem"><audio ref="audio_tag" src={this.state.sound.url} controls autoPlay type="audio/mpeg" /></div></div>}
+        {this.state.text &&
+          this.props.fetchedData[this.state.text.url] && (
+            <a href={this.props.fetchedData[this.state.text.url].source}> Source: {this.props.fetchedData[this.state.text.url].source}</a>
+          )}
+        {this.state.sound && (
+          <div className="audioBox">
+            <div className="audioItem">
+              <button className="tab-button" onClick={this.playMusic}>
+                Play sound
+              </button>
+              <button className="tab-button" onClick={this.pauseMusic}>
+                Pause sound
+              </button>
+              <audio
+                ref={input => {
+                  this.audio_tag = input;
+                }}
+                src={this.state.sound.url}
+                autoPlay
+                type="audio/mpeg"
+                id="audioPlayer"
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
