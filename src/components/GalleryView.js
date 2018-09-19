@@ -61,13 +61,16 @@ class GalleryView extends React.Component {
     }
   }
 
-  playMusic = () => {
-    this.audio_tag.play();
-  };
-
-  pauseMusic = () => {
-    this.audio_tag.pause();
-  };
+  toggleMusic = () => {
+    this.setState(prevState => ({
+      playingMusic: !prevState.playingMusic
+    }));
+    if (this.state.playingMusic) {
+      this.audio_tag.play();
+    } else {
+      this.audio_tag.pause();
+    }
+  }
 
   render() {
     return (
