@@ -8,44 +8,33 @@ class GalleryView extends React.Component {
   }
 
   updateImage = (category, index) => {
-    this.props.fetchData("./img/" + category.value + "/" + (index + 1) + ".svg")
-    .then(data => {
-      return data.text()
-    }).then(data => {
-      this.setState({
-        img: {
-          data: data,
-          name: category.value + this.props.tabIndex
-        }
-      });
-    }).catch((error) => {
-      console.error(error);
+    let url = "./img/" + category.value + "/" + (index + 1) + ".svg";
+    this.props.fetchData(url, false);
+    this.setState({
+      img: {
+        url: url,
+        name: category.value + this.props.tabIndex
+      }
     });
+   
   }
 
   updateText = (category, index) => {
-    this.props.fetchData("./text/" + category.value + "/" + (index + 1) + ".json")
-      .then(data => {
-        // Gjør det om til json.
-        return data.json()
-      })
-      .then(data => {
-        this.setState({
-          text: {
-            data: data,
-            name: category.value + this.props.tabIndex
-          }
-        })
-      }).catch((error) => {
-        console.error(error);
-      });
+    let url = "./text/" + category.value + "/" + (index + 1) + ".json";
+    this.props.fetchData(url, true)
+    this.setState({
+      text: {
+        url: url,
+        name: category.value + this.props.tabIndex
+      }
+    })
   }
 
   updateSound = (category, index) => {
     // Denne skulle ikke fetche via ajax.
     this.setState({
       sound: {
-        data: "./sound/" + category.value + "/" + (index + 1) + ".mp3",
+        url: "./sound/" + category.value + "/" + (index + 1) + ".mp3",
         name: category.value + this.props.tabIndex
       }
     });
@@ -77,13 +66,14 @@ class GalleryView extends React.Component {
 
 
   render() {
+  
     return (
       <div className="galleryView container">
         <h2>Gallery</h2>
-        {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.state.img.data }} />}
-        {this.state.text && <p>{this.state.text.data.text}</p>}
-        {this.state.text && <a href={this.state.text.data.source}> Source: {this.state.text.data.source}</a>}
-        {this.state.sound && <div className="audioBox"><div className="audioItem"><audio ref="audio_tag" src={this.state.sound.data} controls autoPlay type="audio/mpeg" /></div></div>}
+        {this.state.img && <div className="imageContainer" dangerouslySetInnerHTML={{ __html: this.props.fetchedData[this.state.img.url] }} />}
+        {this.state.text && this.props.fetchedData[this.state.text.url] && <p>{this.props.fetchedData[this.state.text.url].text}</p>}
+        {this.state.text && this.props.fetchedData[this.state.text.url] && <a href={this.props.fetchedData[this.state.text.url].source}> Source: {this.props.fetchedData[this.state.text.url].source}</a>}
+        {this.state.sound && <div className="audioBox"><div className="audioItem"><audio ref="audio_tag" src={this.state.sound.url} controls autoPlay type="audio/mpeg" /></div></div>}
       </div>
     );
   }

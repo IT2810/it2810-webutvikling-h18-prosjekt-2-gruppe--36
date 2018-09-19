@@ -8,7 +8,6 @@ import CategoryController from "./components/CategoryController";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.fetchedData = {}
     this.categoryTypes = [
       { title: "Pictures", categories: [{displayName: "Car", catalogName: "car"},{displayName: "Nature", catalogName: "nature"}, {displayName: "Optical illusion", catalogName: "optical_illusion"}] },
       { title: "Text", categories: [{displayName: "Cake", catalogName: "cake"},{displayName: "Cars", catalogName: "cars"}, {displayName: "Fish", catalogName: "fish"}] },
@@ -20,6 +19,7 @@ class App extends Component {
         this.getRandomCategory("Text"),
         this.getRandomCategory("Audio")
       ],
+      fetchedData: {},
       tabIndex: 0
     };
   }
@@ -29,14 +29,16 @@ class App extends Component {
     return {category: category, value: values[Math.floor(Math.random()*values.length)].catalogName};
   }
 
-  fetchData = async (url) => {
-    let fetchedData = this.fetchedData[url]
-    if(fetchedData){
-      return fetchedData
+  fetchData = async (url, json) => {
+    console.log(this.state.fetchedData)
+    if(!this.state.fetchedData[url]){
+      let fetchedData =  this.state.fetchedData;
+      fetchedData[url] = "";
+      this.setState({fetchedData: fetchedData});
+      let response =(await fetch(url));
+      fetchedData[url] =  await (json ? response.json() : response.text());
+      this.setState({fetchedData: fetchedData});
     }
-    let response =(await fetch(url));
-    return response;
-
   }
 
   updateSelectedCategory = (category, value) => {
@@ -75,7 +77,7 @@ class App extends Component {
         <TabController tabs={["Art Piece 1", "Art Piece 2", "Art Piece 3", "Art Piece 4"]} selectedIndex={this.state.tabIndex} updateSelectedTab={this.updateSelectedTab} />
         <div id="container">
          <CategoryController categoryTypes={this.categoryTypes} selectedCategory={this.state.categories}  updateSelectedCategory={this.updateSelectedCategory}/>
-          <GalleryView imgCategory={imgCategory} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
+          <GalleryView imgCategory={imgCategory} fetchedData={this.state.fetchedData} textCategory={textCategory} soundCategory={soundCategory} tabIndex={this.state.tabIndex} fetchData={this.fetchData}/>
         </div>
       </div>
     );
