@@ -26,6 +26,10 @@ Caching er løst gjennom at all data som blir lastet ned lagres i et objekt, med
 Vi lagret all data i App komponentet, med små untakk av data som har blitt lagret i sitt eget komponent. I steden for å bruke redux til å håndtere en global state for programmet, brukte vi App som en global state. State fra App ble sendt gjennom props til de andre komponentene. Funksjoner for å kunne endre state’en til App ble også sendt som props til de andre komponentene.
 
 
+### Ajax
+Vi brukte ```fetch``` for å hente bilder og tekst med ajax. Grunnen til at vi valgte ```fetch``` var for å slippe å laste ned enda flere npm pakker, og det virket lettvindt å bruke. For å vise bildet brukte vi ```dangerouslySetInnerHTML```, noe som vi ikke hadde brukt om det ikke var et krav at vi ikke fikk lov å bruke ```<img>``` taggen.
+
+
 ### Responsivt webdesing
 
 Etter tips fra forelesningen valgte vi å designe nettsiden for mobil og liten skjerm først. I index.css begynte vi dermed å skrive css ment for liten skjerm, så la vi til en media-querie for min-width: 768px senere. Likevel måtte vi gjøre endringer i mobil designet senere i utviklingen. Den største forskjell fra liten og stor skjerm er hamburgermenyen som dukker opp på liten skjerm. Hamburgermenyen gir deg muligheten til å åpne og lukke radioknappene for endring av kategorier. Vi valgte å inkludere denne menyen for å gjør det mer brukervennlig å velge kategorier på en liten skjerm. En annen forskjell er fanene ligger over hverandre med to faner i bredden på liten skjerm. Da beholder fanene en stor størrelse og har stor tekst som gjør det enkelt å lese og trykke på en liten skjerm. På stor skjerm ligger alle fanene ved siden hverandre. 
@@ -39,18 +43,11 @@ Vår bruk av git baserte seg på Git Workflow. Etter vi hadde satt opp prosjekte
 
 Vårt mål var at nettsiden skulle se og oppføre seg lik på alle plattformene vi testet for. Alle i gruppen bruker forskjellig operativsystemer og forskjellige nettlesere som førte til at vi fikk kontinuerlig testet forskjellen mellom Safari, Firefox og Chrome på henholdsvis Mac, Linux og Windows. Et eksempel er at vi tidlig oppdaget at den fjerde fanen la seg under de andre, mens Chrome og Firefox hadde tiltenkt virkemåteligger hvor alle fanene ligger vedsiden av hverandre. Dette løste vi ved på å endre flex-basis til 24% istedenfor 25%. Vi har også testet nettsiden på Chrome og Firefox med android telefoner. Her testet vi både vertikal og horisontal orientering. Metoder vi brukte for å teste oppførsel og utseende av nettsiden på forskjellige plattformer var å endre vindustørrelsen og sammenligne utseende ved siden av hverandre. Vi har også testet at all interaktivitet på nettsiden har tiltenkt virkemåte på alle de tidligere nevnte plattformene. Dette inkluderer for eksempel lasting og chaching av data, endring av faner og avspilling av lyd.
 
-<div style="    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;">
 
-![Mobil versjon av siden](http://folk.ntnu.no/tinussf/it2810/a1/mobile.jpg =400x)
+![Mobil versjon av siden](http://folk.ntnu.no/tinussf/it2810/a1/mobile.jpg)
 Over ser man en skjermdump fra Chrome på Android telefon
 ![Desktop versjon av siden](http://folk.ntnu.no/tinussf/it2810/a1/desktop.png)
 Over ser man en skjermdump fra Firefox på Linux
-
-
-</div>
 
 
 Alle lydfiler er lastet ned fra https://freesound.org/, alle bilder er lastet ned fra https://openclipart.org/ og alle tekstfilene er lastet ned fra https://www.wikipedia.org/.
